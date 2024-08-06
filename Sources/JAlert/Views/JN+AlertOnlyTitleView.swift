@@ -1,12 +1,12 @@
 import UIKit
-import Then
 import JUtile
+import Then
 
 public class JNAlertOnlyTitleView: UIView, AlertViewProtocol, AlertViewInternalDismissProtocol {
     
     open var dismissByTap: Bool = true
     open var dismissInTime: Bool = true
-    open var duration: TimeInterval = 1.5
+    open var duration: TimeInterval
     open var haptic: AlertHaptic?
     
     private var customHeight: CGFloat
@@ -22,8 +22,8 @@ public class JNAlertOnlyTitleView: UIView, AlertViewProtocol, AlertViewInternalD
     }
     
     fileprivate weak var viewForPresent: UIView?
-    fileprivate var presentDismissDuration: TimeInterval = 0.5
-    fileprivate var presentDismissScale: CGFloat = 0.8
+    fileprivate var presentDismissDuration: TimeInterval
+    fileprivate var presentDismissScale: CGFloat
     
     fileprivate var completion: (() -> Void)?
     
@@ -33,9 +33,18 @@ public class JNAlertOnlyTitleView: UIView, AlertViewProtocol, AlertViewInternalD
         return view
     }()
     
-    public init(title: String?, height: CGFloat = 42.0, yPosition: CGFloat? = nil) {
+    public init(title: String?,
+                height: CGFloat = 42.0,
+                yPosition: CGFloat? = nil,
+                duration: TimeInterval = 0.5,
+                scale: CGFloat = 0.8,
+                dismissTime: TimeInterval = 1.5
+    ) {
         self.customHeight = height
         self.customYPosition = yPosition
+        self.presentDismissDuration = duration
+        self.presentDismissScale = scale
+        self.duration = dismissTime
         titleLabel = UILabel().then {
             $0.font = UIFont.preferredFont(forTextStyle: .body, weight: .semibold, addPoints: -2)
             $0.numberOfLines = 0
