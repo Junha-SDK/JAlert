@@ -1,4 +1,5 @@
 import UIKit
+import Then
 
 public class AlertIconHeartView: UIView {
     
@@ -35,35 +36,36 @@ public class AlertIconHeartView: UIView {
             
             context.translateBy(x: resizedFrame.minX, y: resizedFrame.minY)
             context.scaleBy(x: resizedFrame.width / 510, y: resizedFrame.height / 470)
-            let bezierPath = UIBezierPath()
-            bezierPath.move(to: CGPoint(x: 255, y: 469.6))
-            bezierPath.addLine(to: CGPoint(x: 219.3, y: 433.9))
-            bezierPath.addCurve(to: CGPoint(x: 0, y: 140.65),
-                                controlPoint1: CGPoint(x: 86.7, y: 316.6),
-                                controlPoint2: CGPoint(x: 0, y: 237.55)
-            )
-            bezierPath.addCurve(to: CGPoint(x: 140.25, y: 0.4),
-                                controlPoint1: CGPoint(x: 0, y: 61.6),
-                                controlPoint2: CGPoint(x: 61.2, y: 0.4)
-            )
-            bezierPath.addCurve(to: CGPoint(x: 255, y: 53.95),
-                                controlPoint1: CGPoint(x: 183.6, y: 0.4),
-                                controlPoint2: CGPoint(x: 226.95, y: 20.8)
-            )
-            bezierPath.addCurve(to: CGPoint(x: 369.75, y: 0.4),
-                                controlPoint1: CGPoint(x: 283.05, y: 20.8),
-                                controlPoint2: CGPoint(x: 326.4, y: 0.4)
-            )
-            bezierPath.addCurve(to: CGPoint(x: 510, y: 140.65),
-                                controlPoint1: CGPoint(x: 448.8, y: 0.4),
-                                controlPoint2: CGPoint(x: 510, y: 61.6)
-            )
-            bezierPath.addCurve(to: CGPoint(x: 290.7, y: 433.9),
-                                controlPoint1: CGPoint(x: 510, y: 237.55),
-                                controlPoint2: CGPoint(x: 423.3, y: 316.6)
-            )
-            bezierPath.addLine(to: CGPoint(x: 255, y: 469.6))
-            bezierPath.close()
+            let bezierPath = UIBezierPath().then {
+                $0.move(to: CGPoint(x: 255, y: 469.6))
+                $0.addLine(to: CGPoint(x: 219.3, y: 433.9))
+                $0.addCurve(to: CGPoint(x: 0, y: 140.65),
+                                    controlPoint1: CGPoint(x: 86.7, y: 316.6),
+                                    controlPoint2: CGPoint(x: 0, y: 237.55)
+                )
+                $0.addCurve(to: CGPoint(x: 140.25, y: 0.4),
+                                    controlPoint1: CGPoint(x: 0, y: 61.6),
+                                    controlPoint2: CGPoint(x: 61.2, y: 0.4)
+                )
+                $0.addCurve(to: CGPoint(x: 255, y: 53.95),
+                                    controlPoint1: CGPoint(x: 183.6, y: 0.4),
+                                    controlPoint2: CGPoint(x: 226.95, y: 20.8)
+                )
+                $0.addCurve(to: CGPoint(x: 369.75, y: 0.4),
+                                    controlPoint1: CGPoint(x: 283.05, y: 20.8),
+                                    controlPoint2: CGPoint(x: 326.4, y: 0.4)
+                )
+                $0.addCurve(to: CGPoint(x: 510, y: 140.65),
+                                    controlPoint1: CGPoint(x: 448.8, y: 0.4),
+                                    controlPoint2: CGPoint(x: 510, y: 61.6)
+                )
+                $0.addCurve(to: CGPoint(x: 290.7, y: 433.9),
+                                    controlPoint1: CGPoint(x: 510, y: 237.55),
+                                    controlPoint2: CGPoint(x: 423.3, y: 316.6)
+                )
+                $0.addLine(to: CGPoint(x: 255, y: 469.6))
+                $0.close()
+            }
             fillColor.setFill()
             bezierPath.fill()
             context.restoreGState()
