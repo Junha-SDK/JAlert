@@ -1,8 +1,5 @@
-//
-//  File.swift
-//  
-//
-//  Created by 박준하 on 8/6/24.
-//
+import UIKit
 
-import Foundation
+protocol AlertViewInternalDismissProtocol {
+    func dismiss(customCompletion: (() -> Void)?)
+}

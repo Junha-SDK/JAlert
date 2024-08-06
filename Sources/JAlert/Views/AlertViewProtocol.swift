@@ -1,8 +1,6 @@
-//
-//  File.swift
-//  
-//
-//  Created by 박준하 on 8/6/24.
-//
+import UIKit
 
-import Foundation
+public protocol AlertViewProtocol {
+    func present(on view: UIView, completion: (() -> Void)?)
+    func dismiss()
+}
