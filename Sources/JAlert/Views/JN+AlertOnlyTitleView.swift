@@ -2,7 +2,7 @@ import UIKit
 import Then
 import JUtile
 
-public class MGAlertOnlyTitleView: UIView, AlertViewProtocol, AlertViewInternalDismissProtocol {
+public class JNAlertOnlyTitleView: UIView, AlertViewProtocol, AlertViewInternalDismissProtocol {
     
     open var dismissByTap: Bool = true
     open var dismissInTime: Bool = true
