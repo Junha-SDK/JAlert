@@ -42,6 +42,12 @@ public class JNAlertBoxView: UIView, AlertViewProtocol {
                 presentDismissDuration: TimeInterval = 0.2,
                 presentDismissScale: CGFloat = 0.8) {
         
+        self.dismissByTap = dismissByTap
+        self.dismissInTime = dismissInTime
+        self.duration = duration
+        self.presentDismissDuration = presentDismissDuration
+        self.presentDismissScale = presentDismissScale
+        
         if let title = title {
             let label = UILabel()
             label.font = UIFont.preferredFont(forTextStyle: .title2, weight: .bold)
