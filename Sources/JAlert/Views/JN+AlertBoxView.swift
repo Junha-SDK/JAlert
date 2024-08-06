@@ -35,7 +35,12 @@ public class JNAlertBoxView: UIView, AlertViewProtocol {
     
     public init(title: String? = nil,
                 subtitle: String? = nil,
-                icon: AlertIcon? = nil) {
+                icon: AlertIcon? = nil,
+                dismissByTap: Bool = true,
+                dismissInTime: Bool = true,
+                duration: TimeInterval = 1.5,
+                presentDismissDuration: TimeInterval = 0.2,
+                presentDismissScale: CGFloat = 0.8) {
         
         if let title = title {
             let label = UILabel()
@@ -105,11 +110,11 @@ public class JNAlertBoxView: UIView, AlertViewProtocol {
         
         switch icon {
         case .spinnerSmall, .spinnerLarge:
-            dismissInTime = false
-            dismissByTap = false
+            self.dismissInTime = false
+            self.dismissByTap = false
         default:
-            dismissInTime = true
-            dismissByTap = true
+            self.dismissInTime = true
+            self.dismissByTap = true
         }
     }
     

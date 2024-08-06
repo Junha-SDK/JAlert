@@ -30,82 +30,60 @@ public class JNAlertBarView: UIView, AlertViewProtocol, AlertViewInternalDismiss
         return view
     }()
     
-    public init(title: String?, subtitle: String?, icon: AlertIcon?) {
+    public init(title: String?, subtitle: String?, icon: AlertIcon?, effect: UIBlurEffect.Style = .systemMaterial,
+                dismissByTap: Bool = true, dismissInTime: Bool = true, duration: TimeInterval = 1.5,
+                presentDismissDuration: TimeInterval = 0.2, presentDismissScale: CGFloat = 0.8,
+                cornerRadius: CGFloat = 14) {
+        self.dismissByTap = dismissByTap
+        self.dismissInTime = dismissInTime
+        self.duration = duration
+        self.presentDismissDuration = presentDismissDuration
+        self.presentDismissScale = presentDismissScale
         
-        if let title = title {
-            let label = UILabel()
-            label.font = UIFont.preferredFont(forTextStyle: .body, weight: .semibold, addPoints: -2)
-            label.numberOfLines = 0
-            let style = NSMutableParagraphStyle()
-            style.lineSpacing = 3
-            style.alignment = .left
-            label.attributedText = NSAttributedString(string: title, attributes: [.paragraphStyle: style])
-            titleLabel = label
-        } else {
-            self.titleLabel = nil
+        titleLabel = UILabel().then {
+            $0.font = UIFont.preferredFont(forTextStyle: .body, weight: .semibold, addPoints: -2)
+            $0.numberOfLines = 0
+            $0.attributedText = NSAttributedString(string: title ?? "", attributes: [
+                .paragraphStyle: NSMutableParagraphStyle().then {
+                    $0.lineSpacing = 3
+                    $0.alignment = .left
+                }
+            ])
+            $0.textColor = Self.defaultContentColor
         }
         
-        if let subtitle = subtitle {
-            let label = UILabel()
-            label.font = UIFont.preferredFont(forTextStyle: .footnote)
-            label.numberOfLines = 0
-            let style = NSMutableParagraphStyle()
-            style.lineSpacing = 2
-            style.alignment = .left
-            label.attributedText = NSAttributedString(string: subtitle, attributes: [.paragraphStyle: style])
-            subtitleLabel = label
-        } else {
-            self.subtitleLabel = nil
+        subtitleLabel = UILabel().then {
+            $0.font = UIFont.preferredFont(forTextStyle: .footnote)
+            $0.numberOfLines = 0
+            $0.attributedText = NSAttributedString(string: subtitle ?? "", attributes: [
+                .paragraphStyle: NSMutableParagraphStyle().then {
+                    $0.lineSpacing = 2
+                    $0.alignment = .left
+                }
+            ])
+            $0.textColor = Self.defaultContentColor
         }
         
-        if let icon = icon {
-            let view = icon.createView(lineThick: 3)
-            self.iconView = view
-        } else {
-            self.iconView = nil
+        iconView = icon?.createView(lineThick: 3).then {
+            $0.tintColor = Self.defaultContentColor
         }
-        
-        self.titleLabel?.textColor = Self.defaultContentColor
-        self.subtitleLabel?.textColor = Self.defaultContentColor
-        self.iconView?.tintColor = Self.defaultContentColor
         
         super.init(frame: .zero)
         
         preservesSuperviewLayoutMargins = false
         insetsLayoutMarginsFromSafeArea = false
-        
         backgroundColor = .clear
+        
+        backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: effect))
         addSubview(backgroundView)
         
-        if let titleLabel = self.titleLabel {
-            addSubview(titleLabel)
-        }
-        if let subtitleLabel = self.subtitleLabel {
-            addSubview(subtitleLabel)
-        }
-        
-        if let iconView = self.iconView {
-            addSubview(iconView)
-        }
-        
-        if subtitleLabel == nil {
-            layoutMargins = .init(top: 17, left: 15, bottom: 17, right: 15 + ((icon == nil) ? .zero : 3))
-        } else {
-            layoutMargins = .init(top: 15, left: 15, bottom: 15, right: 15 + ((icon == nil) ? .zero : 3))
-        }
+        if let titleLabel = titleLabel { addSubview(titleLabel) }
+        if let subtitleLabel = subtitleLabel { addSubview(subtitleLabel) }
+        if let iconView = iconView { addSubview(iconView) }
         
         layer.masksToBounds = true
-        layer.cornerRadius = 14
+        layer.cornerRadius = cornerRadius
         layer.cornerCurve = .continuous
-        
-        switch icon {
-        case .spinnerSmall, .spinnerLarge:
-            dismissInTime = false
-            dismissByTap = false
-        default:
-            dismissInTime = true
-            dismissByTap = true
-        }
     }
     
     required init?(coder: NSCoder) {
